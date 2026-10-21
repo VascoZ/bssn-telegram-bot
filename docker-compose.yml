@@ -1,0 +1,47 @@
+services:
+  bot:
+    build: .
+    image: percepatan-bot
+    container_name: percepatan-bot
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      WAHA_URL: http://waha:3000   # alamat WAHA di jaringan internal Docker
+    volumes:
+      - bot-data:/app/data
+      - ./faq.json:/app/faq.json:ro   # FAQ bisa diubah tanpa build ulang
+    depends_on:
+      - waha
+    logging: &logging
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # WhatsApp HTTP API untuk notifikasi WhatsApp (https://waha.devlike.pro).
+  # Setelah dijalankan: buka http://localhost:3000/dashboard, mulai sesi "default", lalu scan QR.
+  waha:
+    # Varian GOWS: tanpa browser Chromium, sehingga unduhan lebih kecil (~770 MB) dan lebih ringan dijalankan.
+    # Diambil lewat mirror.gcr.io (salinan Docker Hub milik Google) karena server unduhan
+    # Docker Hub (CloudFront) diblokir di jaringan kantor; isinya identik dengan devlikeapro/waha:gows.
+    # Sebaiknya ganti ke versi tertentu setelah terbukti stabil.
+    image: mirror.gcr.io/devlikeapro/waha:gows
+    container_name: percepatan-waha
+    restart: unless-stopped
+    environment:
+      WHATSAPP_DEFAULT_ENGINE: GOWS
+      WAHA_API_KEY: ${WAHA_API_KEY:?isi WAHA_API_KEY di .env}
+      WAHA_DASHBOARD_USERNAME: ${WAHA_DASHBOARD_USERNAME:-admin}
+      WAHA_DASHBOARD_PASSWORD: ${WAHA_DASHBOARD_PASSWORD:?isi WAHA_DASHBOARD_PASSWORD di .env}
+      WHATSAPP_SWAGGER_USERNAME: ${WAHA_DASHBOARD_USERNAME:-admin}
+      WHATSAPP_SWAGGER_PASSWORD: ${WAHA_DASHBOARD_PASSWORD:?isi WAHA_DASHBOARD_PASSWORD di .env}
+      WHATSAPP_RESTART_ALL_SESSIONS: "True"   # sesi WhatsApp otomatis aktif lagi setelah restart
+    ports:
+      - "127.0.0.1:3000:3000"   # dashboard hanya bisa dibuka dari komputer/server ini
+    volumes:
+      - waha-sessions:/app/.sessions
+    logging: *logging
+
+volumes:
+  bot-data:
+  waha-sessions:

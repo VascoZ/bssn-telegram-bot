@@ -1,0 +1,17 @@
+# Rahasia: token bot, kunci WAHA, password, nomor WhatsApp
+.env
+.env.*
+!.env.example
+
+# Kode lama yang masih berisi token bot
+*.bak
+
+# Data user (database & cadangan) dan tangkapan layar
+data/
+Screenshot/
+
+# Lingkungan Python & cache
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/

@@ -1,0 +1,35 @@
+{
+  "_petunjuk": "Bagian yang diawali '_' diabaikan bot. Tambahkan bagian per layanan dengan nama layanan sebagai kunci (PTKKSS, TTIS, MANRISK, PEMDI, PENGADUAN), isinya daftar {\"q\": pertanyaan, \"a\": jawaban}. Bagian yang kosong tidak ditampilkan. Perubahan langsung berlaku tanpa restart bot.",
+  "_contoh": {
+    "TTIS": [
+      {"q": "Contoh pertanyaan tentang TTIS?", "a": "Contoh jawaban."}
+    ]
+  },
+  "UMUM": [
+    {
+      "q": "Bagaimana cara berkonsultasi dengan admin?",
+      "a": "Tekan tombol Menghubungi Admin, lalu isi nama, instansi, dan pilih layanan. Admin akan menghubungi Anda melalui chat ini."
+    },
+    {
+      "q": "Kapan admin membalas?",
+      "a": "Admin membalas pada jam layanan. Permintaan yang masuk di luar jam layanan tetap tercatat dan akan ditanggapi pada jam layanan berikutnya."
+    },
+    {
+      "q": "Apa itu nomor tiket?",
+      "a": "Setiap permintaan mendapat nomor tiket (contoh: #0042). Sebutkan nomor ini saat menanyakan perkembangan permintaan Anda."
+    },
+    {
+      "q": "Bisakah saya mengirim dokumen atau foto?",
+      "a": "Bisa. Setelah mendaftar, kirim saja dokumen atau foto di chat ini dan admin akan menerimanya."
+    },
+    {
+      "q": "Bagaimana membatalkan pengisian data?",
+      "a": "Ketik /batal saat sedang mengisi nama, instansi, atau layanan."
+    }
+  ],
+  "PTKKSS": [],
+  "TTIS": [],
+  "MANRISK": [],
+  "PEMDI": [],
+  "PENGADUAN": []
+}
